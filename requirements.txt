@@ -1,0 +1,11 @@
+streamlit
+google-generativeai
+PyPDF2
+python-docx
+python-dotenv
+aiohttp
+agno
+agentql
+requests
+asyncio
+aiodns
