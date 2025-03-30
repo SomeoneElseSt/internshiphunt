@@ -1,6 +1,6 @@
 # Internship Hunt w/Agno📚, Gemini🧠, and AgentQL🦾
 
-**What?** A tool to help students navigate the transition from academia to the professional world by making internship applications more efficient and personalized.
+**What?** A tool to help students navigate the transition from academia to the professional world by making internship applications more efficient and personalized leveraging AI at every step.
 
 ## The Idea 💡
 **Why?** Our journey began as college freshmen struggling to translate academic skills into professional opportunities. We created Internship Hunt because we saw that our schoolmates were maximizing their chances of getting an internship by heavily leveraging AI, so we wondered how we could make this process as efficient and tailored as possible.
