@@ -18,11 +18,11 @@ This tool:
 ## The Implementation ⚙️
 **How?** Thanks to awesome open-source tools and Sponsor API's at the MultiModal AI Agents Hackathon in San Francisco: 
 
-- AgentQL
-- Agno
-- Streamlit
-- Google Gemini
-- Replit
+- [AgentQL](https://www.agentql.com)
+- [Agno](https://docs.agno.com)
+- [Streamlit](https://streamlit.io)
+- [Replit](https://replit.com)
+- [Google Gemini](https://ai.google.dev/gemini-api/docs/migrate-to-cloud)
 
 ## What's next — Feature Wish-List 🎅
 
