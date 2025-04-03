@@ -1,5 +1,5 @@
 streamlit
-google-genai
+google-generativeai
 PyPDF2
 python-docx
 python-dotenv
