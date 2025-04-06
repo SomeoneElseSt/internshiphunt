@@ -9,3 +9,4 @@ agentql
 requests
 asyncio
 aiodns
+google-genai
