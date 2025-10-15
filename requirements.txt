@@ -1,12 +1,10 @@
 streamlit
 google-generativeai
+google-genai
 PyPDF2
 python-docx
 python-dotenv
 aiohttp
-agno
-agentql
-requests
-asyncio
 aiodns
-google-genai
+agno
+requests
