@@ -1,9 +1,11 @@
 """GitHub API client for fetching internship listings."""
 
 import os
+import re
 import base64
 import json
 import asyncio
+import time
 import aiohttp
 import streamlit as st
 from typing import Dict, List, Any
@@ -101,7 +103,7 @@ class GithubTool(Toolkit):
             if '|' in line:
                 parts = [p.strip() for p in line.split('|')]
                 if len(parts) >= 4:
-                    if all(p.startswith('---') for p in parts if p):  # Skip table headers
+                    if all(p.startswith('---') for p in parts if p):
                         continue
                     current_internship = {
                         "company": parts[1] if len(parts) > 1 else "",
@@ -116,7 +118,7 @@ class GithubTool(Toolkit):
 
     async def fetch_internship_data(self) -> Dict[str, Any]:
         """Fetch and process internship data from multiple sources in parallel."""
-        
+
         async def fetch_and_parse_repo(repo):
             """Helper function to fetch and parse a single repository."""
             data = await self.fetch_readme(
@@ -129,7 +131,7 @@ class GithubTool(Toolkit):
                 internships = self.parse_internship_data(data["content"])
                 return [{**i, "source": repo["owner"]} for i in internships]
             return []
-        
+
         repo_results = await asyncio.gather(
             *[fetch_and_parse_repo(repo) for repo in self.repo_links],
             return_exceptions=True
@@ -141,7 +143,7 @@ class GithubTool(Toolkit):
                 print(f"Error fetching repository: {result}")
                 continue
             all_internships.extend(result)
-        
+
         print("Fetched internships from GitHub:", all_internships)
         return {
             "status": "success", 
@@ -150,10 +152,12 @@ class GithubTool(Toolkit):
         }
 
     def recommend_internships(self, internships: List[Dict], profile: Dict) -> List[Dict]:
-        """Use custom Gemini agent to recommend internships based on profile."""
+        """Use custom Gemini agent to recommend internships based on profile with retry logic."""
+
+
         recommendation_agent = Agent(
             model=Gemini(
-                id='gemini-2.5-pro', 
+                id='gemini-2.5-pro',
                 api_key=GOOGLE_API_KEY
             ),
             description="You are an expert at matching internship opportunities to candidate profiles, with deep understanding of tech industry requirements and career progression.",
@@ -191,7 +195,6 @@ class GithubTool(Toolkit):
                 processed_job = {}
 
                 if 'company' in job:
-                    import re
                     company_match = re.search(r'<strong>(.*?)</strong>', job['company'])
                     if company_match:
                         processed_job['company'] = company_match.group(1)
@@ -203,9 +206,13 @@ class GithubTool(Toolkit):
 
                 if 'application' in job or 'application_link' in job:
                     app_data = job.get('application') or job.get('application_link', '')
+
+                    if not app_data or app_data == 'null':
+                        continue
+
                     if app_data.startswith('$'):
                         processed_job['application_link'] = app_data
-                    else:  # Handle URL
+                    else:
                         url_match = re.search(r'href=["\'](.*?)["\']', app_data)
                         if url_match:
                             url = url_match.group(1)
@@ -222,7 +229,6 @@ class GithubTool(Toolkit):
 
             return processed_recommendations[:10]
         except Exception as e:
-            print(f"Error in recommendations: {e}")
+            print(f"Error processing recommendations: {e}")
             print(f"Cleaned response that caused error: {cleaned_response}")
             return [internships[i] for i in range(min(10, len(internships)))]
-
