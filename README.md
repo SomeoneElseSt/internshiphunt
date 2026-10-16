@@ -1,6 +1,6 @@
 # Internship Hunt w/ Agno 📚, Gemini 🧠, and AgentQL 🦾
 
-> 🏆 **2nd place — Best Use of Agno** at the MultiModal AI Agents Hackathon in San Francisco. [See the project on Devpost](https://devpost.com/software/internship-hunt-w-agno-gemini-and-agentql).
+> Internship Hunt won 2nd place for best use of Agno at the MultiModal AI Agents Hackathon in San Francisco! See Devpost [here](https://devpost.com/software/internship-hunt-w-agno-gemini-and-agentql).
 
 **Internship Hunt** is an AI-assisted internship search and application preparation tool, co-created by [Hammon Dutra](https://github.com/hammondutra) and [Stiven Triana](https://github.com/SomeoneElseSt).
 
